@@ -21,6 +21,15 @@ module.exports = {
             test: /\.less$/,
             use: ['style-loader', 'css-loader', 'less-loader'],
             exclude: '/node_modules'
+        }, {
+            test: /\.(woff2?|ttf)$/,
+            use: {
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                }
+            }
         }]
     },
     devServer: {

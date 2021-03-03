@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 
-import './index.less'
+import './style/main.less'
 
 class App extends React.Component {
     constructor (props) {
         super(props)
     }
     render () {
-        return <div>
+        return <div className="app">
             <BoxWrapper />
             <Tabs />
         </div>
@@ -20,7 +20,7 @@ class Tabs extends React.Component {
         super(props)
     }
     render () {
-        return <div id="tabs">
+        return <div className="tabs">
             <Tab type="test" />
             <Tab type="list" />
             <Tab type="conf" />
@@ -42,7 +42,7 @@ class BoxWrapper extends React.Component {
         super(props)
     }
     render () {
-        return <div>
+        return <div className="boxWrapper">
             <TestBox />
             <ListBox />
             <ConfBox />
