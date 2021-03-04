@@ -1,1 +1,116 @@
 @import 'md';
+
+body {
+    margin: 0;
+    background-color: #F0EFF5;
+    user-select: none;
+}
+
+.app {
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper {
+    background-color: #FFF;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 16px;
+    width: 90vw;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 40vh;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 800px;
+
+    .prcs {
+        .text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10%;
+
+            .number {
+                font-size: 36px;
+                margin-top: 60px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .write {
+                font-size: 18px;
+                margin-top: 40px;
+            }
+            .read {
+                font-size: 18px;
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+
+                .button {
+                    margin-left: 16px;
+                    box-shadow: rgb(0 0 0 / 20%) 0 0 3px;
+                    font-size: 32px;
+                }
+            }
+        }
+        .control {
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+            display: flex;
+            width: 50%;
+            justify-content: space-between;
+            bottom: 20px;
+            min-width: 270px;
+        }
+    }
+}
+
+.tabs {
+    @height: 64px;
+    background-color: #FFF;
+    border-radius: @height;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 16px;
+    width: 80vw;
+    height: @height;
+    position: absolute;
+    bottom: 0;
+    left: 50vw;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 420px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+
+    .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon {
+            font-size: 28px;
+        }
+
+        .text {
+            font-size: 12px;
+        }
+    }
+}
+
+.button {
+    color: #9e9e9e;
+    font-size: 48px;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all .2s;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #F0EFF5;
+    }
+
+    //&.speak { color: #03a9f4; }
+    //&.pause { color: #ff9800; }
+    //&.stop { color: rgba(255, 0, 0, .6); }
+}
