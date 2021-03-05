@@ -51,6 +51,32 @@ export function writeAsJapanese(number: string): string {
     return text
 }
 
+export function readAsJapanese(text: string) {
+    return text
+        .replace(/三百/g, 'さんびゃく')
+        .replace(/六百/g, 'ろっぴゃく')
+        .replace(/八百/g, 'はっぴゃく')
+        .replace(/三千/g, 'さんぜん')
+        .replace(/八千/g, 'はっせん')
+        .replace(/一兆/g, 'いっちょう')
+        .replace(/一/g, 'いち')
+        .replace(/二/g, 'に')
+        .replace(/三/g, 'さん')
+        .replace(/四/g, 'よん')
+        .replace(/五/g, 'ご')
+        .replace(/六/g, 'ろく')
+        .replace(/七/g, 'なな')
+        .replace(/八/g, 'はち')
+        .replace(/九/g, 'きゅう')
+        .replace(/十/g, 'じゅう')
+        .replace(/百/g, 'ひゃく')
+        .replace(/千/g, 'せん')
+        .replace(/万/g, 'まん')
+        .replace(/億/g, 'おく')
+        .replace(/兆/g, 'ちょう')
+        .replace(/零/g, 'れい')
+}
+
 function numberToKanji(number: string): string {
     switch (number) {
         case '0': return '零';
