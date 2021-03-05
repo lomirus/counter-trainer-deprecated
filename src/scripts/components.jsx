@@ -171,15 +171,3 @@ class NextButton extends ControlButton {
         </span>
     }
 }
-
-function randomInt(lower, upper) {
-    if (lower % 1 !== 0) {
-        console.error('"lower" must be integer')
-        return 0
-    }
-    if (upper % 1 !== 0) {
-        console.error('"upper" must be integer')
-        return 0
-    }
-    return Math.round(Math.random() * (upper - lower) + lower)
-}
