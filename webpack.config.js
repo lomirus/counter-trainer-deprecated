@@ -30,6 +30,11 @@ module.exports = {
                     outputPath: 'fonts/'
                 }
             }
+        }, {
+            test: /\.tsx?$/,
+            use: {
+                loader: 'ts-loader'
+            }
         }]
     },
     devServer: {

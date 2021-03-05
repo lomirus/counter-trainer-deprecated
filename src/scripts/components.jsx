@@ -1,6 +1,6 @@
 import React from 'react'
 
-export class App extends React.Component {
+export default class App extends React.Component {
     constructor (props) {
         super(props)
     }
@@ -170,4 +170,16 @@ class NextButton extends ControlButton {
             arrow_forward
         </span>
     }
+}
+
+function randomInt(lower, upper) {
+    if (lower % 1 !== 0) {
+        console.error('"lower" must be integer')
+        return 0
+    }
+    if (upper % 1 !== 0) {
+        console.error('"upper" must be integer')
+        return 0
+    }
+    return Math.round(Math.random() * (upper - lower) + lower)
 }
