@@ -12,19 +12,19 @@ export function randomInt(lower: number, upper: number): number {
 
 export function writeAsJapanese(number: string): string {
     let text = ''
-    UnshiftDirect(1, '')
-    UnshiftCheckOne(2, '十')
-    UnshiftCheckOne(3, '百')
-    UnshiftCheckOne(4, '千')
-    UnshiftCarry(5, '万')
-    UnshiftCheckOne(6, '十')
-    UnshiftCheckOne(7, '百')
-    UnshiftDirect(8, '千')
-    UnshiftCarry(9, '億')
-    UnshiftCheckOne(10, '十')
-    UnshiftCheckOne(11, '百')
-    UnshiftDirect(12, '千')
-    UnshiftDirect(13, '兆')
+    UnshiftDirect(1, '');       if (number.length === 1) return text;
+    UnshiftCheckOne(2, '十');   if (number.length === 2) return text;
+    UnshiftCheckOne(3, '百');   if (number.length === 3) return text;
+    UnshiftCheckOne(4, '千');   if (number.length === 4) return text;
+    UnshiftCarry(5, '万');      if (number.length === 5) return text;
+    UnshiftCheckOne(6, '十');   if (number.length === 6) return text;
+    UnshiftCheckOne(7, '百');   if (number.length === 7) return text;
+    UnshiftDirect(8, '千');     if (number.length === 8) return text;
+    UnshiftCarry(9, '億');      if (number.length === 9) return text;
+    UnshiftCheckOne(10, '十');  if (number.length === 10) return text;
+    UnshiftCheckOne(11, '百');  if (number.length === 11) return text;
+    UnshiftDirect(12, '千');    if (number.length === 12) return text;
+    UnshiftDirect(13, '兆');    return text;
     function UnshiftDirect (pos: number, kanji: string) {
         if (number.length >= pos && number[number.length - pos] !== '0') {
             text = numberToKanji(number[number.length - pos]) + kanji + text
@@ -48,7 +48,6 @@ export function writeAsJapanese(number: string): string {
             text = numberToKanji(number[number.length - pos]) + kanji + text
         }
     }
-    return text
 }
 
 export function readAsJapanese(text: string) {

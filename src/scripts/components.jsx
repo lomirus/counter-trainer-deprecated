@@ -1,10 +1,11 @@
 import React from 'react'
+import * as util from './util.ts'
 
 export default class App extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="app">
             <BoxWrapper />
             <Tabs />
@@ -13,10 +14,10 @@ export default class App extends React.Component {
 }
 
 class Tabs extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="tabs">
             <Tab type="test" icon="assessment" text="测试" />
             <Tab type="list" icon="list" text="清单" />
@@ -26,10 +27,10 @@ class Tabs extends React.Component {
 }
 
 class Tab extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="tab">
             <span className='icon material-icons'>{this.props.icon}</span>
             <span className="text">{this.props.text}</span>
@@ -38,10 +39,10 @@ class Tab extends React.Component {
 }
 
 class BoxWrapper extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="wrapper">
             <TestBox />
             <ListBox />
@@ -51,16 +52,16 @@ class BoxWrapper extends React.Component {
 }
 
 class Box extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
 }
 
 class TestBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="test">
             <PrepBox />
             <PrcsBox />
@@ -70,10 +71,10 @@ class TestBox extends Box {
 }
 
 class ConfBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="conf">
 
         </div>
@@ -81,10 +82,10 @@ class ConfBox extends Box {
 }
 
 class ListBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="list">
 
         </div>
@@ -92,56 +93,74 @@ class ListBox extends Box {
 }
 
 class PrepBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="prep"></div>
     }
 }
 
 class PrcsBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
+        this.words = []
+        this.nowWord = 0
+        this.state = this.addNewWord()
     }
-    render () {
+
+    addNewWord() {
+        const number = util.randomInt(0, 100000000);
+        const write = util.writeAsJapanese(number.toString());
+        const read = util.readAsJapanese(write);
+        const word = {
+            number: number,
+            write: write,
+            read: read,
+        }
+        this.words.push(word)
+        this.nowWord = this.words.length - 1
+        return word
+    }
+
+    render() {
         return <div className="prcs">
             <div className="text">
-                <span className="number">65536</span>
-                <span className="write">六万五千五百三十六</span>
+                <span className="number">{this.state.number}</span>
+                <span className="write">{this.state.write}</span>
                 <div className="read">
-                    <span>ろくまんごせんごひゃくさんじゅうろく</span>
+                    <span>{this.state.read}</span>
                     <SpeakButton />
                 </div>
             </div>
             <div className="control">
-                <BackButton />
+                <BackButton parent={this} />
                 <PlayButton />
-                <NextButton />
+                <NextButton parent={this} />
             </div>
         </div>
     }
 }
 
 class FnshBox extends Box {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
-    render () {
+    render() {
         return <div className="fnsh">
-            
+
         </div>
     }
 }
 
 class ControlButton extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
 }
 
 class SpeakButton extends ControlButton {
-    render (props) {
+    render(props) {
         return <span className="button material-icons speak">
             volume_up
         </span>
@@ -149,7 +168,7 @@ class SpeakButton extends ControlButton {
 }
 
 class PlayButton extends ControlButton {
-    render (props) {
+    render(props) {
         return <span className="button material-icons pause">
             pause
         </span>
@@ -157,16 +176,42 @@ class PlayButton extends ControlButton {
 }
 
 class BackButton extends ControlButton {
-    render (props) {
-        return <span className="button material-icons back">
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(props.parent)
+    }
+    render(props) {
+        return <span
+            className="button material-icons back"
+            onClick={this.handleClick}>
             arrow_back
         </span>
+    }
+    handleClick() {
+        if (this.nowWord !== 0) {
+            this.nowWord -= 1
+            this.setState(this.words[this.nowWord])
+        }
     }
 }
 
 class NextButton extends ControlButton {
-    render (props) {
-        return <span className="button material-icons next">
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(props.parent)
+    }
+    handleClick() {
+        if (this.nowWord === this.words.length - 1) {
+            this.setState(this.addNewWord())
+        } else {
+            this.nowWord += 1
+            this.setState(this.words[this.nowWord])
+        }
+    }
+    render(props) {
+        return <span
+            className="button material-icons next"
+            onClick={this.handleClick}>
             arrow_forward
         </span>
     }
