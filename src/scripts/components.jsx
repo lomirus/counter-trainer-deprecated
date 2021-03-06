@@ -106,11 +106,14 @@ class PrcsBox extends Box {
         super(props)
         this.words = []
         this.nowWord = 0
-        this.state = this.addNewWord()
+        this.state = {
+            ...this.addNewWord(),
+            lang: 'ja-JP'
+        }
     }
 
     addNewWord() {
-        const number = util.randomInt(0, 100000000);
+        const number = util.randomInt(0, 10000);
         const write = util.writeAsJapanese(number.toString());
         const read = util.readAsJapanese(write);
         const word = {
@@ -130,7 +133,7 @@ class PrcsBox extends Box {
                 <span className="write">{this.state.write}</span>
                 <div className="read">
                     <span>{this.state.read}</span>
-                    <SpeakButton />
+                    <SpeakButton parent={this} />
                 </div>
             </div>
             <div className="control">
@@ -160,8 +163,15 @@ class ControlButton extends React.Component {
 }
 
 class SpeakButton extends ControlButton {
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(props.parent)
+    }
+    handleClick() {
+        util.speak(this.state.read, this.state.lang)
+    }
     render(props) {
-        return <span className="button material-icons speak">
+        return <span className="button material-icons speak" onClick={this.handleClick}>
             volume_up
         </span>
     }

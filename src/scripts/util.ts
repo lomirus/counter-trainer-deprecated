@@ -12,25 +12,25 @@ export function randomInt(lower: number, upper: number): number {
 
 export function writeAsJapanese(number: string): string {
     let text = ''
-    UnshiftDirect(1, '');       if (number.length === 1) return text;
-    UnshiftCheckOne(2, '十');   if (number.length === 2) return text;
-    UnshiftCheckOne(3, '百');   if (number.length === 3) return text;
-    UnshiftCheckOne(4, '千');   if (number.length === 4) return text;
-    UnshiftCarry(5, '万');      if (number.length === 5) return text;
-    UnshiftCheckOne(6, '十');   if (number.length === 6) return text;
-    UnshiftCheckOne(7, '百');   if (number.length === 7) return text;
-    UnshiftDirect(8, '千');     if (number.length === 8) return text;
-    UnshiftCarry(9, '億');      if (number.length === 9) return text;
-    UnshiftCheckOne(10, '十');  if (number.length === 10) return text;
-    UnshiftCheckOne(11, '百');  if (number.length === 11) return text;
-    UnshiftDirect(12, '千');    if (number.length === 12) return text;
-    UnshiftDirect(13, '兆');    return text;
-    function UnshiftDirect (pos: number, kanji: string) {
+    UnshiftDirect__(1, ''); if (number.length === 1) return text;
+    UnshiftCheckOne(2, '十'); if (number.length === 2) return text;
+    UnshiftCheckOne(3, '百'); if (number.length === 3) return text;
+    UnshiftCheckOne(4, '千'); if (number.length === 4) return text;
+    UnshiftCarry___(5, '万'); if (number.length === 5) return text;
+    UnshiftCheckOne(6, '十'); if (number.length === 6) return text;
+    UnshiftCheckOne(7, '百'); if (number.length === 7) return text;
+    UnshiftDirect__(8, '千'); if (number.length === 8) return text;
+    UnshiftCarry___(9, '億'); if (number.length === 9) return text;
+    UnshiftCheckOne(10, '十'); if (number.length === 10) return text;
+    UnshiftCheckOne(11, '百'); if (number.length === 11) return text;
+    UnshiftDirect__(12, '千'); if (number.length === 12) return text;
+    UnshiftDirect__(13, '兆'); return text;
+    function UnshiftDirect__(pos: number, kanji: string) {
         if (number.length >= pos && number[number.length - pos] !== '0') {
             text = numberToKanji(number[number.length - pos]) + kanji + text
         }
     }
-    function UnshiftCheckOne (pos: number, kanji: string) {
+    function UnshiftCheckOne(pos: number, kanji: string) {
         if (number.length >= pos && number[number.length - pos] !== '0') {
             if (number[number.length - pos] === '1') {
                 text = kanji + text
@@ -39,7 +39,7 @@ export function writeAsJapanese(number: string): string {
             }
         }
     }
-    function UnshiftCarry(pos: number, kanji: string) {
+    function UnshiftCarry___(pos: number, kanji: string) {
         if (number.length === pos) {
             text = numberToKanji(number[number.length - pos]) + kanji + text;
         } else if (number[number.length - pos] === '0') {
@@ -90,5 +90,14 @@ function numberToKanji(number: string): string {
         case '9': return '九';
         default: return '';
     }
+}
+
+export function speak(text, lang) {
+    var speech = new SpeechSynthesisUtterance();
+    speech.text = text;
+    speech.lang = lang;
+    speech.rate = 0.8;
+    console.log('text: ', speech.text, ', lang: ', speech.lang)
+    speechSynthesis.speak(speech);
 }
 
