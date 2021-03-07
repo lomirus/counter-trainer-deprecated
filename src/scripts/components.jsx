@@ -7,7 +7,7 @@ export default class App extends React.Component {
     }
     render() {
         return <div className="app">
-            <BoxWrapper />
+            <TestBox />
             <Tabs />
         </div>
     }
@@ -38,22 +38,10 @@ class Tab extends React.Component {
     }
 }
 
-class BoxWrapper extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return <div className="wrapper">
-            <TestBox />
-            <ListBox />
-            <ConfBox />
-        </div>
-    }
-}
-
 class Box extends React.Component {
     constructor(props) {
         super(props)
+        this.className = 'box'
     }
 }
 
@@ -62,33 +50,7 @@ class TestBox extends Box {
         super(props)
     }
     render() {
-        return <div className="test">
-            <PrepBox />
-            <PrcsBox />
-            <FnshBox />
-        </div>
-    }
-}
-
-class ConfBox extends Box {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return <div className="conf">
-
-        </div>
-    }
-}
-
-class ListBox extends Box {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return <div className="list">
-
-        </div>
+        return <PrcsBox />
     }
 }
 
@@ -110,6 +72,13 @@ class PrcsBox extends Box {
             ...this.addNewWord(),
             lang: 'ja-JP'
         }
+        window.addEventListener('mousewheel', (e) => {
+            if (e.deltaY > 0) {
+                this.scrollNext()
+            } else {
+                this.scrollBack()
+            }
+        })
     }
 
     addNewWord() {
@@ -126,20 +95,33 @@ class PrcsBox extends Box {
         return word
     }
 
+    scrollBack() {
+        if (this.nowWord !== 0) {
+            this.nowWord -= 1
+            this.setState(this.words[this.nowWord])
+        }
+    }
+
+    scrollNext() {
+        if (this.nowWord === this.words.length - 1) {
+            this.setState(this.addNewWord())
+        } else {
+            this.nowWord += 1
+            this.setState(this.words[this.nowWord])
+        }
+    }
+
     render() {
-        return <div className="prcs">
+        return <div className={ this.className + " prcs" }>
             <div className="text">
                 <span className="number">{this.state.number}</span>
                 <span className="write">{this.state.write}</span>
-                <div className="read">
-                    <span>{this.state.read}</span>
-                    <SpeakButton parent={this} />
-                </div>
+                <span className="read">{this.state.read}</span>
             </div>
             <div className="control">
-                <BackButton parent={this} />
                 <PlayButton />
-                <NextButton parent={this} />
+                
+                <SpeakButton parent={this} />
             </div>
         </div>
     }
@@ -178,51 +160,14 @@ class SpeakButton extends ControlButton {
 }
 
 class PlayButton extends ControlButton {
+    // change it to a static property later if avalible...
+    canvasStyle = {
+        position: 'absolute'
+    }
+
     render(props) {
         return <span className="button material-icons pause">
             pause
-        </span>
-    }
-}
-
-class BackButton extends ControlButton {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(props.parent)
-    }
-    render(props) {
-        return <span
-            className="button material-icons back"
-            onClick={this.handleClick}>
-            arrow_back
-        </span>
-    }
-    handleClick() {
-        if (this.nowWord !== 0) {
-            this.nowWord -= 1
-            this.setState(this.words[this.nowWord])
-        }
-    }
-}
-
-class NextButton extends ControlButton {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(props.parent)
-    }
-    handleClick() {
-        if (this.nowWord === this.words.length - 1) {
-            this.setState(this.addNewWord())
-        } else {
-            this.nowWord += 1
-            this.setState(this.words[this.nowWord])
-        }
-    }
-    render(props) {
-        return <span
-            className="button material-icons next"
-            onClick={this.handleClick}>
-            arrow_forward
         </span>
     }
 }

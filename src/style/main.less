@@ -11,7 +11,7 @@ body {
     height: 100vh;
 }
 
-.wrapper {
+.box {
     background-color: #FFF;
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.1) 0 0 16px;
@@ -22,46 +22,44 @@ body {
     top: 40vh;
     transform: translateX(-50%) translateY(-50%);
     max-width: 800px;
+}
 
-    .prcs {
-        .text {
+.prcs {
+    .text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10%;
+
+        * {
+            text-align: center;
+        }
+
+        .number {
+            font-size: 40px;
+            margin-top: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .write {
+            font-size: 20px;
+            margin-top: 40px;
+        }
+        .read {
+            font-size: 20px;
+            margin-top: 20px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 0 10%;
-
-            .number {
-                font-size: 36px;
-                margin-top: 60px;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            .write {
-                font-size: 18px;
-                margin-top: 40px;
-            }
-            .read {
-                font-size: 18px;
-                margin-top: 10px;
-                display: flex;
-                align-items: center;
-
-                .button {
-                    margin-left: 16px;
-                    box-shadow: rgb(0 0 0 / 20%) 0 0 3px;
-                    font-size: 32px;
-                }
-            }
         }
-        .control {
-            left: 50%;
-            transform: translateX(-50%);
-            position: absolute;
-            display: flex;
-            width: 50%;
-            justify-content: space-between;
-            bottom: 20px;
-            min-width: 270px;
-        }
+    }
+    .control {
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        display: flex;
+        width: 50%;
+        justify-content: space-between;
+        bottom: 20px;
+        min-width: 270px;
     }
 }
 
@@ -98,15 +96,26 @@ body {
 }
 
 .button {
+    @side_length: 42px;
+    @padding: 12px;
     color: #9e9e9e;
-    font-size: 48px;
-    padding: 10px;
+    font-size: @side_length;
+    padding: @padding;
+    width: @side_length;
+    height: @side_length;
     border-radius: 50%;
+    box-shadow: rgb(0 0 0 / 20%) 0 0 4px;
     transition: all .2s;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
-    &:hover {
+    @media (any-hover: hover) {
+        &:hover {
+            background-color: #F0EFF5;
+        }
+    }
+
+    &:active {
         background-color: #F0EFF5;
     }
 
