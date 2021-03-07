@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/lomirus/counter-trainer/blob/main/LICENSE) [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
+
 # Usage
 
 ## Download & Install
@@ -21,38 +23,38 @@ npx webpack serve
 
 ### Test
 
-* Pause
-* Stop
-* Start
-* Show/Hide Number/Code/Time/Date
-* Show/Hide Text
-* Show/Hide Pronunciation
+* [ ] Pause
+* [ ] Stop
+* [ ] Start
+* [ ] Show/Hide Number/Code/Time/Date
+* [ ] Show/Hide Text
+* [ ] Show/Hide Pronunciation
 
 ### List
 
-* Number Span
-* Number/Code/Time/Date
-* Test Case Number
+* [ ] Number Span
+* [ ] Number/Code/Time/Date
+* [ ] Test Case Number
 
 ### Settings
 
-* Speak Rate
-* Speak Volume
-* Speak Interval
-* Automatically Pronounce
-* Automatically Next
-* Showing Number/Code/Time/Date
-* Showing Text
-* Showing Pronunciation
-* Night Mode
-* Switch Display Language
-* Switch Test Language
-* About
+* [ ] Speak Rate
+* [ ] Speak Volume
+* [ ] Speak Interval
+* [ ] Automatically Pronounce
+* [ ] Automatically Next
+* [ ] Showing Number/Code/Time/Date
+* [ ] Showing Text
+* [ ] Showing Pronunciation
+* [ ] Night Mode
+* [ ] Switch Display Language
+* [ ] Switch Test Language
+* [ ] About
 
 ## Language Support
 
 |Language|Display|Number|Code|Time|Date|
-|--------|-------|------|----|----|----|
+|:-------|:-----:|:----:|:--:|:--:|:--:|
 |Deutsche||||||
 |English||||||
 |한국어||||||
