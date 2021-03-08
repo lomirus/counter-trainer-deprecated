@@ -7,7 +7,7 @@ export default class App extends React.Component {
     }
     render() {
         return <div className="app">
-            <Practice />
+            <PracticeActivity />
             <Tabs />
         </div>
     }
@@ -38,16 +38,101 @@ class Tab extends React.Component {
     }
 }
 
-class PrePractice extends React.Component {
+class Activity extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
-        return <div className="pre_practice activity"></div>
+        return <div className="activity">
+            <div className={"box " + this.props.boxClass}>
+                {this.props.box}
+            </div>
+            <div key="controls" className="buttons">
+                {this.props.buttons}
+            </div>
+        </div>
     }
 }
 
-class Practice extends React.Component {
+class PracticeActivity extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            activity: <PrePracticeActivity toMain={this.toMain} />
+        }
+    }
+
+    toPre = () => {
+        this.setState({
+            activity: <PrePracticeActivity toMain={this.toMain} />
+        })
+    }
+
+    toMain = () => {
+        this.setState({
+            activity: <MainPracticeActivity toPre={this.toPre} />
+        })
+    }
+
+    render() {
+        return this.state.activity
+    }
+}
+
+class PrePracticeActivity extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            box: <NumberConfig />
+        }
+    }
+    render() {
+        return <Activity box={this.state.box} buttons={<>
+            <Button key="number" type="number" icon="pin" onClick={
+                () => this.setState({ box: <NumberConfig /> })} />
+            <Button key="time" type="time" icon="schedule" onClick={
+                () => this.setState({ box: <TimeConfig /> })} />
+            <Button key="start" type="start" icon="play_arrow" onClick={
+                () => this.props.toMain()} />
+        </>} />
+    }
+}
+
+class NumberConfig extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return <>
+            <span>数字范围</span>
+            <div>
+                <input type="text" placeholder="最小值"></input>
+                <input type="text" placeholder="最大值"></input>
+            </div>
+        </>
+    }
+}
+
+class TimeConfig extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return <>
+            <span>时间格式</span>
+            <div>
+                <input type="text" placeholder="示例：DAY-MONTH-YEAR HOUR:MINUTE"></input>
+            </div>
+            <span>时间范围</span>
+            <div>
+                <input type="text" placeholder="最早时间（格式同上所填）"></input>
+                <input type="text" placeholder="最晚时间（格式同上所填）"></input>
+            </div>
+        </>
+    }
+}
+
+class MainPracticeActivity extends React.Component {
     constructor(props) {
         super(props)
         this.words = []
@@ -79,7 +164,8 @@ class Practice extends React.Component {
         return word
     }
 
-    speakWord() {
+    speakWord = () => {
+        console.log(this)
         util.speak(this.state.read, this.state.lang)
     }
 
@@ -100,17 +186,14 @@ class Practice extends React.Component {
     }
 
     render() {
-        return <div className="practice activity">
-            <div className="practice_box box">
-                <span className="number">{this.state.number}</span>
-                <span className="write">{this.state.write}</span>
-                <span className="read">{this.state.read}</span>
-            </div>
-            <div className="practice_control">
-                <PlayButton />
-                <SpeakButton onClick={ () => this.speakWord() }/>
-            </div>
-        </div>
+        return <Activity boxClass="main_practice" box={<>
+            <span className="number">{this.state.number}</span>
+            <span className="write">{this.state.write}</span>
+            <span className="read">{this.state.read}</span>
+        </>} buttons={<>
+            <PlayButton />
+            <SpeakButton onClick={this.speakWord}/>
+        </>} />
     }
 }
 
@@ -119,9 +202,7 @@ class SpeakButton extends React.Component {
         super(props)
     }
     render(props) {
-        return <span className="button material-icons speak" onClick={this.props.onClick}>
-            volume_up
-        </span>
+        return <Button key="speak" type="speak" icon="volume_up" onClick={this.props.onClick} />
     }
 }
 
@@ -132,8 +213,18 @@ class PlayButton extends React.Component {
     }
 
     render(props) {
-        return <span className="button material-icons pause">
-            pause
-        </span>
+        return <Button key="pause" type="pause" icon="pause" />
+    }
+}
+
+class Button extends React.Component {
+    render() {
+        return (
+            <span
+                className={"button material-icons " + this.props.type}
+                onClick={this.props.onClick}>
+                    {this.props.icon}
+            </span>
+        )
     }
 }

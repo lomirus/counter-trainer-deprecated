@@ -10,7 +10,7 @@ cd counter-trainer
 npm install
 ```
 
-## Test
+## Run & Test
 
 ```bash
 npx webpack serve
@@ -21,8 +21,10 @@ npx webpack serve
 
 ## Functions
 
-### Test
+### Practice
 
+* [ ] Number Span
+* [ ] Number/Code/Time/Date
 * [ ] Pause
 * [ ] Stop
 * [ ] Start
@@ -30,10 +32,8 @@ npx webpack serve
 * [ ] Show/Hide Text
 * [ ] Show/Hide Pronunciation
 
-### List
+### Test
 
-* [ ] Number Span
-* [ ] Number/Code/Time/Date
 * [ ] Test Case Number
 
 ### Settings
