@@ -7,7 +7,7 @@ export default class App extends React.Component {
     }
     render() {
         return <div className="app">
-            <TestBox />
+            <Practice />
             <Tabs />
         </div>
     }
@@ -19,9 +19,9 @@ class Tabs extends React.Component {
     }
     render() {
         return <div className="tabs">
-            <Tab type="test" icon="assessment" text="测试" />
-            <Tab type="list" icon="list" text="清单" />
-            <Tab type="conf" icon="settings" text="设置" />
+            <Tab key="practice" icon="assignment" text="练习" />
+            <Tab key="test" icon="assessment" text="测试" />
+            <Tab key="settings" icon="settings" text="设置" />
         </div>
     }
 }
@@ -38,32 +38,16 @@ class Tab extends React.Component {
     }
 }
 
-class Box extends React.Component {
-    constructor(props) {
-        super(props)
-        this.className = 'box'
-    }
-}
-
-class TestBox extends Box {
+class PrePractice extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
-        return <PrcsBox />
+        return <div className="pre_practice activity"></div>
     }
 }
 
-class PrepBox extends Box {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return <div className="prep"></div>
-    }
-}
-
-class PrcsBox extends Box {
+class Practice extends React.Component {
     constructor(props) {
         super(props)
         this.words = []
@@ -95,6 +79,10 @@ class PrcsBox extends Box {
         return word
     }
 
+    speakWord() {
+        util.speak(this.state.read, this.state.lang)
+    }
+
     scrollBack() {
         if (this.nowWord !== 0) {
             this.nowWord -= 1
@@ -112,54 +100,32 @@ class PrcsBox extends Box {
     }
 
     render() {
-        return <div className={ this.className + " prcs" }>
-            <div className="text">
+        return <div className="practice activity">
+            <div className="practice_box box">
                 <span className="number">{this.state.number}</span>
                 <span className="write">{this.state.write}</span>
                 <span className="read">{this.state.read}</span>
             </div>
-            <div className="control">
+            <div className="practice_control">
                 <PlayButton />
-                
-                <SpeakButton parent={this} />
+                <SpeakButton onClick={ () => this.speakWord() }/>
             </div>
         </div>
     }
 }
 
-class FnshBox extends Box {
+class SpeakButton extends React.Component {
     constructor(props) {
         super(props)
-    }
-    render() {
-        return <div className="fnsh">
-
-        </div>
-    }
-}
-
-class ControlButton extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-}
-
-class SpeakButton extends ControlButton {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(props.parent)
-    }
-    handleClick() {
-        util.speak(this.state.read, this.state.lang)
     }
     render(props) {
-        return <span className="button material-icons speak" onClick={this.handleClick}>
+        return <span className="button material-icons speak" onClick={this.props.onClick}>
             volume_up
         </span>
     }
 }
 
-class PlayButton extends ControlButton {
+class PlayButton extends React.Component {
     // change it to a static property later if avalible...
     canvasStyle = {
         position: 'absolute'
